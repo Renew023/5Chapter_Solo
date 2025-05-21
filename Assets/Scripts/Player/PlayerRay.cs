@@ -24,10 +24,10 @@ public class PlayerRay : MonoBehaviour
 
     void FixedUpdate()
     {
-        Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+        Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width/2, Screen.height/2)); // 마우스 좌표에서 일직선으로 나가는 레이를 쏴라.
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, maxCheckDistance, layerMask))
+        if (Physics.Raycast(ray, out hit, maxCheckDistance, layerMask)) //레이를 맞추고 out hit=> hit 값을 받아온다.
         {
             if (hit.collider.gameObject != curInteractGameObject)
             {
@@ -60,4 +60,6 @@ public class PlayerRay : MonoBehaviour
             promptText.gameObject.SetActive(false);
         }
     }
+
+    
 }

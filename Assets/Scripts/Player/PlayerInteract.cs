@@ -1,0 +1,67 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerInteract : MonoBehaviour
+{
+	[Header("ÇÃ·§Æû ¹«ºù")]
+	[SerializeField]
+	private Rigidbody player;
+	private Vector3 startTriggerPosition;
+
+	[Header("ÇÃ·§Æû Å¸ÀÌ¹Ö")]
+	[SerializeField]
+	private float angleY = 45f;
+	[SerializeField]
+	private float distance = 10f;
+	[SerializeField]
+	private Vector3 direction;
+
+	void Awake()
+	{
+		
+	}
+
+	public void OnCollisionEnter(Collision other)
+	{
+		if (other.gameObject.CompareTag("Platform"))
+		{
+			Debug.Log("¹Þ¾Æ¿È");
+			startTriggerPosition = other.transform.position;
+			StartCoroutine("TimeOut");
+		}
+	}
+
+	public void OnCollisionStay(Collision other)
+	{
+		if (other.gameObject.CompareTag("Platform"))
+		{
+			Debug.Log("ÀÌµ¿ Áß~");
+			//ÇÃ·¹ÀÌ¾îÀÇ Çö À§Ä¡¿¡ = Çö ÇÃ·§ÆûÀÌ ÁÂÇ¥¿¡¼­ Ã³À½ ¹â¾ÒÀ» ¶§ ÁÂÇ¥¸¦ »©°í ±× °ªÀ» ´õÇØ¶ó
+			player.transform.position += other.transform.position - startTriggerPosition;
+			startTriggerPosition = other.transform.position;
+		}
+	}
+
+	public void OnCollisionExit(Collision collision)
+	{
+		StopCoroutine("TimeOut");
+	}
+
+	IEnumerator TimeOut()
+	{
+		yield return new WaitForSeconds(1.0f);
+
+		Debug.Log("¸¹ÀÌ ÇØ¹¬¾ú´Ù ¾ÆÀÌ°¡");
+		TimeOutJump();
+	}
+
+	public void TimeOutJump()
+	{
+		player.GetComponent<PlayerKey>().isControllStop  = true;
+		direction = Quaternion.AngleAxis(angleY, Vector3.right) * Vector3.up;
+		direction = Quaternion.AngleAxis(player.transform.eulerAngles.y, Vector3.up) * direction;
+
+		player.AddForce(direction.normalized * distance *player.mass, ForceMode.Impulse);
+	}
+}
