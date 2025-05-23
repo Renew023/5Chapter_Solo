@@ -10,18 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53274dc60dc7be347b50a25c703a1a98, type: 3}
-  m_Name: Item_Use_Sword
+  m_Name: Use_Sword
   m_EditorClassIdentifier: 
   itemName: "\uBA39\uC744 \uC218 \uC788\uB294 \uAC80"
   itemDescription: "\uBA39\uC744 \uC218 \uC788\uB3C4\uB85D \uC124\uACC4\uB418\uC5C8\uB2E4."
   type: 1
   icon: {fileID: 21300000, guid: 4f2f320a217307a48a107491b1d17ebb, type: 3}
-  dropPrefab: {fileID: 355312524381552382, guid: b84d7ca3927758646a65731cc107aa76, type: 3}
+  dropPrefab: {fileID: 6235227257080052303, guid: 2ea51168964a8654b9a46e4b20bb108b, type: 3}
   canStack: 1
   maxStackAmount: 10
-  healUse:
-  - type: 0
-    value: 20
-  - type: 1
-    value: 20
-  equipPrefab: {fileID: 355312524381552382, guid: b84d7ca3927758646a65731cc107aa76, type: 3}
+  onceUse:
+  - type: 4
+    value: 1000
+    isTimer: 1
+    time: 5
+  - type: 3
+    value: 10
+    isTimer: 1
+    time: 10
+  equipPrefab: {fileID: 0}

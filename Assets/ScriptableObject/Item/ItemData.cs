@@ -7,21 +7,27 @@ public enum ItemType
 {
 	Equip,
 	OnceUse,
-	Resource
+	Resource,
+	Interactable
 }
 
 public enum OnceUseType
 {
 	Health,
 	Hunger,
-	Stamina
+	Stamina,
+	MoveSpeed,
+	JumpPower
 }
 
 [Serializable]
-public class HealUse
+public class OnceUse
 {
 	public OnceUseType type;
 	public float value;
+
+	public bool isTimer;
+	public float time;
 }
 
 [CreateAssetMenu(fileName = "Item", menuName = "New Item")]
@@ -38,8 +44,8 @@ public class ItemData : ScriptableObject
 	public bool canStack;
 	public int maxStackAmount;
 
-	[Header("회복량")]
-	public HealUse[] healUse;
+	[Header("아이템 사용 시")]
+	public OnceUse[] onceUse;
 
 	[Header("장비")]
 	public GameObject equipPrefab;

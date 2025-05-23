@@ -20,6 +20,7 @@ public class ItemObject : MonoBehaviour, IInteractable
 
 	public void OnInterect()
     {
+        if (data.type == ItemType.Interactable) return;
         EventItem.addItem(data);
         Debug.Log("æ∆¿Ã≈€ »πµÊ π◊ ªË¡¶!");
         Destroy(this.gameObject);

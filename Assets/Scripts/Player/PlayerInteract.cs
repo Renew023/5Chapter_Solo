@@ -17,11 +17,6 @@ public class PlayerInteract : MonoBehaviour
 	[SerializeField]
 	private Vector3 direction;
 
-	void Awake()
-	{
-		
-	}
-
 	public void OnCollisionEnter(Collision other)
 	{
 		if (other.gameObject.CompareTag("Platform"))

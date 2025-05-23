@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public class RaizerTrap : MonoBehaviour
 {
@@ -23,21 +24,34 @@ public class RaizerTrap : MonoBehaviour
     {
         Ray[] rays = new Ray[10]
             {
-                new Ray(new Vector3(7, 1, 10.5f), new Vector3(7, 1, 10.5f) + Vector3.forward),
-                new Ray(new Vector3(8, 1, 10.5f), new Vector3(8, 1, 10.5f) + Vector3.forward),
-                new Ray(new Vector3(9, 1, 10.5f), new Vector3(9, 1, 10.5f) + Vector3.forward),
-                new Ray(new Vector3(10, 1, 10.5f), new Vector3(10, 1, 10.5f) + Vector3.forward),
-                new Ray(new Vector3(11, 1, 10.5f),new Vector3(11, 1, 10.5f) + Vector3.forward),
-                new Ray(new Vector3(12, 1, 10.5f),new Vector3(12, 1, 10.5f) + Vector3.forward),
-                new Ray(new Vector3(13, 1, 10.5f),new Vector3(13, 1, 10.5f) + Vector3.forward),
-                new Ray(new Vector3(14, 1, 10.5f),new Vector3(14, 1, 10.5f) + Vector3.forward),
-                new Ray(new Vector3(15, 1, 10.5f),new Vector3(15, 1, 10.5f) + Vector3.forward),
-                new Ray(new Vector3(16, 1, 10.5f),new Vector3(16, 1, 10.5f) + Vector3.forward)
+                new Ray(new Vector3(7, 1, 10.5f), Vector3.forward),
+                new Ray(new Vector3(8, 1, 10.5f), Vector3.forward),
+                new Ray(new Vector3(9, 1, 10.5f), Vector3.forward),
+                new Ray(new Vector3(10, 1, 10.5f), Vector3.forward),
+                new Ray(new Vector3(11, 1, 10.5f), Vector3.forward),
+                new Ray(new Vector3(12, 1, 10.5f), Vector3.forward),
+                new Ray(new Vector3(13, 1, 10.5f), Vector3.forward),
+                new Ray(new Vector3(14, 1, 10.5f), Vector3.forward),
+                new Ray(new Vector3(15, 1, 10.5f), Vector3.forward),
+                new Ray(new Vector3(16, 1, 10.5f), Vector3.forward)
             };
 
 		for (int i = 0; i < rays.Length; i++)
 		{
-			if (Physics.Raycast(rays[i], 10f, layerMask))
+			GameObject lineObj = new GameObject("RayLine_" + i);
+			lineObj.transform.parent = this.transform; // ∞Ë√˛ ¡§∏ÆøÎ
+			LineRenderer lr = lineObj.AddComponent<LineRenderer>();
+
+			lr.positionCount = 2;
+			lr.SetPosition(0, rays[i].origin);
+			lr.SetPosition(1, rays[i].origin + Vector3.forward * 10f);
+			lr.startWidth = 0.05f;
+			lr.endWidth = 0.05f;
+			lr.material = new Material(Shader.Find("Sprites/Default"));
+			lr.startColor = Color.red;
+			lr.endColor = Color.red;
+
+			if (Physics.Raycast(rays[i].origin, Vector3.forward, 10f, layerMask))
 			{
                 Debug.Log("ªÁ∏¡¿Ãø‰");
                 isUseTrap = true;

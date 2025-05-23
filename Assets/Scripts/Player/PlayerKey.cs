@@ -6,48 +6,38 @@ using UnityEngine.InputSystem;
 public class PlayerKey : MonoBehaviour
 {
     [Header("Move")]
-    [SerializeField]
-    private float moveSpeed;
+    public float moveSpeed;
     private Vector2 curMoveInput;
 
     [Header("Look")]
-	[SerializeField]
-	private Transform camera;
-	[SerializeField]
-	private float minXLook;
-	[SerializeField]
-	private float maxXLook;
+	[SerializeField] private Transform camera;
+	[SerializeField] private float minXLook;
+	[SerializeField] private float maxXLook;
+	[SerializeField] private float lookSensitivity;
     private float camCurX;
-	[SerializeField]
-	private float lookSensitivity;
     private Vector2 mouseDelta;
 
     [Header("LookChange")]
+	[SerializeField] private float threeMinXLook;
+	[SerializeField] private float threeMaxXLook;
+	[SerializeField] private float oneMinXLook;
+	[SerializeField] private float oneMaxXLook;
+    [SerializeField] private GameObject midPoint; 
     private bool isOne = true;
-	[SerializeField]
-	private float threeMinXLook;
-	[SerializeField]
-	private float threeMaxXLook;
-	[SerializeField]
-	private float oneMinXLook;
-	[SerializeField]
-	private float oneMaxXLook;
-    [SerializeField]
-    private GameObject midPoint; 
 
 	[Header("Jump")]
-	[SerializeField]
-	private float jumpPower;
+	[SerializeField] private LayerMask groundLayerMask;
+	public float jumpPower;
     private bool isGround;
-	[SerializeField]
-	private LayerMask groundLayerMask;
 
 	[Header("Grap")]
-    [SerializeField]
-    private float maxGrapDistance;
-    [SerializeField]
-    private LayerMask grapLayerMask;
+    [SerializeField] private float maxGrapDistance;
+    [SerializeField] private LayerMask grapLayerMask;
 	private bool isGrap;
+
+    [Header("Inventory")]
+    [SerializeField] private GameObject inventory;
+    private bool isOpenInventory = false;
 
 	[Header("Character")]
     [SerializeField]
@@ -74,18 +64,20 @@ public class PlayerKey : MonoBehaviour
 
     void LateUpdate()
     {
+        if(!isOpenInventory)
         Look();
     }
 
     public void Move()
     {
+
         if(isControllStop)
 			if (rb.velocity.y <= -0.01f)
 				isControllStop = false;
             else
                 return;
-
-        Vector3 dir = transform.forward * curMoveInput.y+ transform.right * curMoveInput.x;
+        //rb.AddForce((transform.forward * curMoveInput.y + transform.right * curMoveInput.x)*moveSpeed, ForceMode.VelocityChange);
+        Vector3 dir = transform.forward * curMoveInput.y + transform.right * curMoveInput.x;
         dir *= moveSpeed;
         dir.y = rb.velocity.y;
         rb.velocity = dir;
@@ -105,7 +97,9 @@ public class PlayerKey : MonoBehaviour
         if (context.phase == InputActionPhase.Performed)
         {
             curMoveInput = context.ReadValue<Vector2>();
-        }
+			if (!rb.useGravity)
+				rb.useGravity = true;
+		}
         else if (context.phase == InputActionPhase.Canceled)
         {
             curMoveInput = Vector2.zero;
@@ -196,6 +190,16 @@ public class PlayerKey : MonoBehaviour
                 isGround = true;
                 isGrap = true;
             }
+        }
+    }
+
+    public void OnInventory(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            inventory.SetActive(!inventory.activeSelf);
+            Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
+            isOpenInventory = isOpenInventory == false ? true : false;
         }
     }
 

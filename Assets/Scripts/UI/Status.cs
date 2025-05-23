@@ -6,12 +6,9 @@ public class Status : MonoBehaviour
 {
     // Start is called before the first frame update
     [Header("╫╨еха╬╥Ы")]
-    [SerializeField]
-    private BarStat health;
-	[SerializeField]
-	private BarStat hunger;
-	[SerializeField]
-	private BarStat stamina;
+    public BarStat health;
+	public BarStat hunger;
+	public BarStat stamina;
 
     void Start()
     {
