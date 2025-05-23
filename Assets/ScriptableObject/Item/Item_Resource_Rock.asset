@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53274dc60dc7be347b50a25c703a1a98, type: 3}
+  m_Name: Item_Resource_Rock
+  m_EditorClassIdentifier: 
+  itemName: "\uAC1C\uC9F1\uB3CC"
+  itemDescription: "\uAE38\uC744 \uB9C9\uB294\uB370 \uCD5C\uC801\uD654\uB418\uC5B4\uC788\uB2E4."
+  type: 2
+  icon: {fileID: 21300000, guid: e61976ceaf6919c47853f5a7ea09288b, type: 3}
+  dropPrefab: {fileID: 6359112800851457702, guid: c0695e50372965840badd7b84ed57617, type: 3}
+  canStack: 1
+  maxStackAmount: 10
+  healUse: []
+  equipPrefab: {fileID: 0}
