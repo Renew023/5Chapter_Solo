@@ -1,11 +1,12 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
-public class RaizerTrap : MonoBehaviour
+public class LaserTrap : MonoBehaviour
 {
     [SerializeField]
+    private Transform a;
     private LayerMask layerMask;
     private bool isUseTrap = false;
     void Start()
@@ -39,7 +40,7 @@ public class RaizerTrap : MonoBehaviour
 		for (int i = 0; i < rays.Length; i++)
 		{
 			GameObject lineObj = new GameObject("RayLine_" + i);
-			lineObj.transform.parent = this.transform; // ∞Ë√˛ ¡§∏ÆøÎ
+			lineObj.transform.parent = this.transform; // Í≥ÑÏ∏µ Ï†ïÎ¶¨Ïö©
 			LineRenderer lr = lineObj.AddComponent<LineRenderer>();
 
 			lr.positionCount = 2;
@@ -53,7 +54,7 @@ public class RaizerTrap : MonoBehaviour
 
 			if (Physics.Raycast(rays[i].origin, Vector3.forward, 10f, layerMask))
 			{
-                Debug.Log("ªÁ∏¡¿Ãø‰");
+                Debug.Log("ÏÇ¨ÎßùÏù¥Ïöî");
                 isUseTrap = true;
                 Invoke("TrapReset", 3f);
                 break;
@@ -74,7 +75,8 @@ public class RaizerTrap : MonoBehaviour
 		{
 			Vector3 origin = new Vector3(i, 1, 10.5f);
 			Vector3 direction = Vector3.forward;
-			Gizmos.DrawRay(origin, direction * 10f); // *10f¥¬ Ray ±Ê¿Ã
+            Gizmos.DrawRay(a.position, Vector3.forward); 
+			Gizmos.DrawRay(origin, direction * 10f); // *10fÎäî Ray Í∏∏Ïù¥
 		}
 	}
 
@@ -86,7 +88,7 @@ public class RaizerTrap : MonoBehaviour
 		{
 			Vector3 origin = new Vector3(i, 1, 10.5f);
 			Vector3 direction = Vector3.forward;
-			Gizmos.DrawRay(origin, direction * 10f); // *10f¥¬ Ray ±Ê¿Ã
+			Gizmos.DrawRay(origin, direction * 10f); // *10fÎäî Ray Í∏∏Ïù¥
 		}
 	}
 }

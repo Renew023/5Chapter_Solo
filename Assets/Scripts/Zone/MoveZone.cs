@@ -43,6 +43,7 @@ public class MoveZone : MonoBehaviour
 			while (timer < point[count].moveDelay)
 			{
 				timer += Time.deltaTime;
+				//rb.velocity = (point[count].movePoint) / point[count].moveDelay;
 				rb.MovePosition(Vector3.Lerp(startPos, point[count].movePoint, 1*(timer/point[count].moveDelay)));
 				//transform.position = Vector3.Lerp(startPos, 
 				//	point[count].movePoint, 1 * (timer / point[count].moveDelay));
